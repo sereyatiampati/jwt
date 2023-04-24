@@ -1,6 +1,10 @@
 class Api::V1::UsersController < ApplicationController
     skip_before_action :authorized, only: [:create]
 
+    def profile
+        render json: { user: UserSerializer.new(current_user) }, status: :accepted
+      end
+
     #Signup issues a token when users register:
     def create
         @user = User.create!(user_params)
